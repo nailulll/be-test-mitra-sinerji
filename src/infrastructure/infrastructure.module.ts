@@ -1,4 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { DatabaseModule } from "./database/database.module";
 
-@Module({})
-export class InfrastructureModule {}
+@Module({
+  imports: [
+    DatabaseModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+  ],
+})
+export class InfrastructureModule {
+}
