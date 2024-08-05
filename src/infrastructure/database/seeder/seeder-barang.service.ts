@@ -14,11 +14,11 @@ export class SeederBarangService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
-    const items = await this.barangRepository.find();
-    for (const item of items) {
-      await this.barangRepository.remove(item);
-    }
-    this.logger.log("Remove seeding");
+    // const items = await this.barangRepository.find();
+    // for (const item of items) {
+    //   await this.barangRepository.remove(item);
+    // }
+    // this.logger.log("Remove seeding");
   }
 
   async onModuleInit() {
@@ -31,9 +31,10 @@ export class SeederBarangService implements OnModuleInit, OnModuleDestroy {
     const priceIncrement = 2600;
     const uniqueNames = new Set<string>();
 
+    let index = 1;
     while (items.length < 50) {
       let name: string;
-
+      index++;
       do {
         name = faker.commerce.productName();
       } while (uniqueNames.has(name));
@@ -42,10 +43,15 @@ export class SeederBarangService implements OnModuleInit, OnModuleDestroy {
       item.kode = `BRG-${items.length + 1}`;
       item.nama = name;
       item.harga = basePrice + (items.length * priceIncrement);
+      item.diskon = this.isEven(index) ? 0 : Math.floor(Math.random() * 91);
       items.push(item);
     }
 
     await this.barangRepository.save(items);
     this.logger.log("Seeding done");
+  }
+
+  private isEven(num: number) {
+    return num % 2 === 0;
   }
 }

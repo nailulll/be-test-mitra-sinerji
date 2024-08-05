@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { Sales } from "../sales/sales.entity";
+import { Sales } from "./sales.entity";
 import { Barang } from "../barang/barang.entity";
 
 @Entity("t_sales_det")

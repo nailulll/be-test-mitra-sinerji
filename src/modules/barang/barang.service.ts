@@ -10,7 +10,8 @@ export class BarangService {
   ) {
   }
 
-  findAll() {
-    return this.barangRepository.find();
+  async findAll() {
+    return await this.barangRepository.find({ order: { nama: "ASC" } });
   }
+
 }

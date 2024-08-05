@@ -3,8 +3,8 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
 import { ConfigService } from "@nestjs/config";
 import { Barang } from "../../modules/barang/barang.entity";
 import { Customer } from "../../modules/customer/customer.entity";
-import { Sales } from "../../modules/sales/sales.entity";
-import { SalesDetail } from "../../modules/sales-detail/sales-detail.entity";
+import { Sales } from "../../modules/transactions/sales.entity";
+import { SalesDetail } from "../../modules/transactions/sales-detail.entity";
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {

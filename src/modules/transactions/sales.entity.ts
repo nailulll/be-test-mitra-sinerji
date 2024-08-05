@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { SalesDetail } from "../sales-detail/sales-detail.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SalesDetail } from "./sales-detail.entity";
+import { Customer } from "../customer/customer.entity";
 
 @Entity("t_sales")
 export class Sales {
@@ -12,8 +13,9 @@ export class Sales {
   @Column({ type: "timestamp" })
   tgl: Date;
 
-  @Column({ name: "cust_id" })
-  custId: number;
+  @ManyToOne(type => Customer, customer => customer.sales)
+  @JoinColumn({ name: "cust_id" })
+  customer: Customer;
 
   @Column({ type: "decimal", name: "subtotal" })
   subtotal: number;
