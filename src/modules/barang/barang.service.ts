@@ -11,7 +11,7 @@ export class BarangService {
   }
 
   async findAll() {
-    return await this.barangRepository.find({ order: { nama: "ASC" } });
+    return await this.barangRepository.find({ order: { nama: "ASC" }, cache: true });
   }
 
 }

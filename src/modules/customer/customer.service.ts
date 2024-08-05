@@ -11,7 +11,7 @@ export class CustomerService {
   }
 
   findAll() {
-    return this.customerRepository.find();
+    return this.customerRepository.find({ cache: true });
   }
 
 }
