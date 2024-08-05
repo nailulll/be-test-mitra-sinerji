@@ -14,11 +14,15 @@ export class SeederBarangService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
-    // const items = await this.barangRepository.find();
-    // for (const item of items) {
-    //   await this.barangRepository.remove(item);
-    // }
-    // this.logger.log("Remove seeding");
+    const items = await this.barangRepository.find();
+    try {
+      for (const item of items) {
+        await this.barangRepository.remove(item);
+      }
+      this.logger.log("Remove seeding");
+    } catch (error) {
+      this.logger.error("Error when remove seeding", error);
+    }
   }
 
   async onModuleInit() {

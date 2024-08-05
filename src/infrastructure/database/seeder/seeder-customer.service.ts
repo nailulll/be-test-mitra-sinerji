@@ -14,11 +14,15 @@ export class SeederCustomerService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
-    // const items = await this.customerRepository.find();
-    // for (const item of items) {
-    //   await this.customerRepository.remove(item);
-    // }
-    // this.logger.log("Remove seeding");
+    const items = await this.customerRepository.find();
+    try {
+      for (const item of items) {
+        await this.customerRepository.remove(item);
+      }
+      this.logger.log("Remove seeding");
+    } catch (error) {
+      this.logger.error("Error when remove seeding", error);
+    }
   }
 
   async onModuleInit() {
