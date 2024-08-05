@@ -1,11 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SalesDetail } from "../transactions/sales-detail.entity";
 import { Expose } from "class-transformer";
-
-const numberTransformer = {
-  to: (value: number): string => value.toString(),
-  from: (value: string): number => parseFloat(value),
-};
+import { numberTransformer } from "src/utils";
 
 @Entity("m_barang")
 export class Barang {
@@ -32,6 +28,6 @@ export class Barang {
     if (this.diskon === 0) {
       return 0;
     }
-    return this.harga - (this.harga * (this.diskon / 100));
+    return this.harga - this.harga * (this.diskon / 100);
   }
 }
