@@ -30,6 +30,24 @@ export class TransactionsService {
     });
   }
 
+  async getOne(kode: string) {
+    const sales = await this.salesRepository.findOne({
+      where: {
+        kode,
+      },
+      relations: {
+        customer: true,
+        details: {
+          barang: true,
+        },
+      },
+    });
+    if (!sales) {
+      throw new NotFoundException("Sales not found");
+    }
+    return sales;
+  }
+
   async create(dto: CreateTransactionDto) {
     const customer = await this.customerRepository.findOneBy({
       kode: dto.customer,
@@ -71,7 +89,7 @@ export class TransactionsService {
       for (let product of products) {
         const detail = this.salesDetailRepository.create();
         const productDto = dto.products.find((p) => p.code === product.kode);
-        detail.barangId = product;
+        detail.barang = product;
         detail.sales = sales1;
         detail.hargaBandrol = product.harga;
         detail.qty = productDto.qty;

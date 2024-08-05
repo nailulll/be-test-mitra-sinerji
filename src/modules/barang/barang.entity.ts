@@ -24,7 +24,7 @@ export class Barang {
   @Column({ type: "decimal", transformer: numberTransformer })
   diskon: number;
 
-  @OneToMany((type) => SalesDetail, (salesDetail) => salesDetail.barangId)
+  @OneToMany((type) => SalesDetail, (salesDetail) => salesDetail.barang)
   details: SalesDetail[];
 
   @Expose()

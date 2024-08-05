@@ -13,7 +13,7 @@ export class SalesDetail {
 
   @ManyToOne(() => Barang, (barang) => barang.details)
   @JoinColumn({ name: "barang_id" })
-  barangId: Barang;
+  barang: Barang;
 
   @Column({ type: "decimal", name: "harga_bandrol" })
   hargaBandrol: number;
