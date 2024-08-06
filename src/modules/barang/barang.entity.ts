@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SalesDetail } from "../transactions/sales-detail.entity";
 import { Expose } from "class-transformer";
-import { numberTransformer } from "src/utils";
 
 @Entity("m_barang")
 export class Barang {
@@ -14,10 +13,22 @@ export class Barang {
   @Column()
   nama: string;
 
-  @Column({ type: "decimal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   harga: number;
 
-  @Column({ type: "decimal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   diskon: number;
 
   @OneToMany((type) => SalesDetail, (salesDetail) => salesDetail.barang)

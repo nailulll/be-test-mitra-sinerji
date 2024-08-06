@@ -8,7 +8,6 @@ import {
 } from "typeorm";
 import { SalesDetail } from "./sales-detail.entity";
 import { Customer } from "../customer/customer.entity";
-import { numberTransformer } from "src/utils";
 
 @Entity("t_sales")
 export class Sales {
@@ -25,19 +24,41 @@ export class Sales {
   @JoinColumn({ name: "cust_id" })
   customer: Customer;
 
-  @Column({ type: "decimal", name: "subtotal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    name: "subtotal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   subtotal: number;
 
-  @Column({ type: "decimal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   diskon: number;
 
-  @Column({ type: "decimal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   ongkir: number;
 
   @Column({
     type: "decimal",
     name: "total_bayar",
-    transformer: numberTransformer,
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
   })
   totalBayar: number;
 

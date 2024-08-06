@@ -7,7 +7,6 @@ import {
 } from "typeorm";
 import { Sales } from "./sales.entity";
 import { Barang } from "../barang/barang.entity";
-import { numberTransformer } from "src/utils";
 
 @Entity("t_sales_det")
 export class SalesDetail {
@@ -25,34 +24,57 @@ export class SalesDetail {
   @Column({
     type: "decimal",
     name: "harga_bandrol",
-    transformer: numberTransformer,
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
   })
   hargaBandrol: number;
 
-  @Column({ transformer: numberTransformer })
+  @Column({
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   qty: number;
 
   @Column({
     type: "decimal",
     name: "diskon_pct",
-    transformer: numberTransformer,
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
   })
   diskonPct: number;
 
   @Column({
     type: "decimal",
     name: "diskon_nilai",
-    transformer: numberTransformer,
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
   })
   diskonNilai: number;
 
   @Column({
     type: "decimal",
     name: "harga_diskon",
-    transformer: numberTransformer,
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
   })
   hargaDiskon: number;
 
-  @Column({ type: "decimal", transformer: numberTransformer })
+  @Column({
+    type: "decimal",
+    transformer: {
+      to: (value: number): string => value.toString(),
+      from: (value: string): number => parseFloat(value),
+    },
+  })
   total: number;
 }
