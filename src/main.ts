@@ -1,11 +1,12 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./modules/app.module";
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
   const configService = app.get(ConfigService);
 
   process.on("SIGINT", async () => {
